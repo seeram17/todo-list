@@ -2,7 +2,12 @@ const todoInput = document.querySelector('.todoList');
 const dateInput = document.querySelector('.date');
 const display = document.querySelector('.result');
 
-let arr = [];
+
+
+
+let arr = JSON.parse(localStorage.getItem('array')) || [];
+
+renderTodoList();
 
 function onEnter(event) {
     if (event.key === 'Enter') addTodo();
@@ -12,6 +17,7 @@ function onEnter(event) {
 function deleteTodo(i) {
 
     arr.splice(i, 1);
+    localStorage.setItem('array', JSON.stringify(arr));
     renderTodoList();
 
 }
@@ -36,6 +42,8 @@ function addTodo() {
         text: todoInput.value,
         date: dateInput.value
     });
+
+    localStorage.setItem('array', JSON.stringify(arr));
 
 
     todoInput.value = '';
